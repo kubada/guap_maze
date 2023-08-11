@@ -18,6 +18,16 @@ class Player:
         self.x = x
         self.y = y
 
+    def move(self, direction: Direction, maze: List[List[int]]):
+        dx, dy = direction.value
+        if maze[self.y + dy][self.x + dx] == 0:
+            self.x += dx
+            self.y += dy
+
+    def reset(self, x, y):
+        self.x = x
+        self.y = y
+
     def draw(self, screen: Any):
         draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
 
