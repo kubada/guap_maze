@@ -3,7 +3,7 @@ from typing import Any, List
 
 from pygame import draw
 
-from const import red, cell_size
+from const import red, cell_size, black, white, green
 
 
 class Direction(Enum):
@@ -31,3 +31,15 @@ class Maze:
         self.end_y: int = 0
         self.density = 0
         self.current_level = 0
+
+        def initialize_maze(self):
+            self.maze = [[1] * self.width for _ in range(self.height)]
+
+        def draw(self, screen: Any):
+            screen.fill(black)
+            for y in range(self.height):
+                for x in range(self.width):
+                    if self.maze[y][x] == 1:
+                        draw.rect(screen, white, (x * cell_size, y * cell_size, cell_size, cell_size))
+            draw.rect(screen, green,
+                      (self.end_x * cell_size, self.end_y * cell_size, cell_size, cell_size))
