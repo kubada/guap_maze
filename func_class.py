@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any
+from typing import Any, List
 
 from pygame import draw
 
@@ -20,3 +20,14 @@ class Player:
 
     def draw(self, screen: Any):
         draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
+
+
+class Maze:
+    def __init__(self, maze_width: int, maze_height: int):
+        self.width = maze_width
+        self.height = maze_height
+        self.maze: List[List[int]] = []
+        self.end_x: int = 0
+        self.end_y: int = 0
+        self.density = 0
+        self.current_level = 0
