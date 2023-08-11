@@ -42,8 +42,11 @@ class Maze:
         self.density = 0
         self.current_level = 0
 
-        def initialize_maze(self):
+        def initialize(self):
             self.maze = [[1] * self.width for _ in range(self.height)]
+
+        def reset(self):
+            self.initialize_maze()
 
         def draw(self, screen: Any):
             screen.fill(black)
