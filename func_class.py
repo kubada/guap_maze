@@ -45,8 +45,16 @@ class Maze:
         def initialize(self):
             self.maze = [[1] * self.width for _ in range(self.height)]
 
+        def generate(self, density: int, current_level: int):
+            self.initialize_maze()
+            self.density = density
+            self.current_level = current_level
+
+            self.maze = [[1] * self.width for _ in range(self.height)]
+
         def reset(self):
             self.initialize_maze()
+            self.generate(self.density, self.current_level)
 
         def draw(self, screen: Any):
             screen.fill(black)
