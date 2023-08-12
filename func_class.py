@@ -18,17 +18,17 @@ class Player:
         self.x = x
         self.y = y
 
-    def move(self, direction: Direction, maze: List[List[int]]):
+    def move_player(self, direction: Direction, maze: List[List[int]]):
         dx, dy = direction.value
         if maze[self.y + dy][self.x + dx] == 0:
             self.x += dx
             self.y += dy
 
-    def reset(self, x, y):
+    def reset_player(self, x, y):
         self.x = x
         self.y = y
 
-    def draw(self, screen: Any):
+    def draw_player(self, screen: Any):
         draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
 
 
@@ -42,21 +42,25 @@ class Maze:
         self.density = 0
         self.current_level = 0
 
-        def initialize(self):
+        def initialize_maze(self):
             self.maze = [[1] * self.width for _ in range(self.height)]
 
-        def generate(self, density: int, current_level: int):
+        def generate_maze(self, density: int, current_level: int):
             self.initialize_maze()
             self.density = density
             self.current_level = current_level
 
             self.maze = [[1] * self.width for _ in range(self.height)]
 
-        def reset(self):
-            self.initialize_maze()
-            self.generate(self.density, self.current_level)
+            for y in range(1, self.height - 1, 2):
+                for x in range(1, self.width - 1, 2):
+                    self.maze[y][x] = 0
 
-        def draw(self, screen: Any):
+        def reset_maze(self):
+            self.initialize_maze()
+            self.generate_maze(self.density, self.current_level)
+
+        def draw_maze(self, screen: Any):
             screen.fill(black)
             for y in range(self.height):
                 for x in range(self.width):
