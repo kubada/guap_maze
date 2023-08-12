@@ -1,4 +1,5 @@
 from enum import Enum
+from random import choice
 from typing import Any, List
 
 from pygame import draw
@@ -55,6 +56,14 @@ class Maze:
             for y in range(1, self.height - 1, 2):
                 for x in range(1, self.width - 1, 2):
                     self.maze[y][x] = 0
+
+                    adjusted_density = density - (current_level * 2)
+                    for _ in range(adjusted_density):
+                        dx, dy = choice([(0, 1), (0, -1), (1, 0), (-1, 0)])
+                        nx, ny = x + dx, y + dy
+
+                        if self.width > nx >= 0 != self.maze[ny][nx] and 0 <= ny < self.height:
+                            self.maze[ny][nx] = 0
 
         def reset_maze(self):
             self.initialize_maze()
