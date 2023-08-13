@@ -1,5 +1,5 @@
 from enum import Enum
-from random import choice
+from random import choice, randrange
 from typing import Any, List
 
 from pygame import draw
@@ -64,6 +64,10 @@ class Maze:
 
                         if self.width > nx >= 0 != self.maze[ny][nx] and 0 <= ny < self.height:
                             self.maze[ny][nx] = 0
+
+            self.end_x = randrange(1, self.width - 1, 2)
+            self.end_y = randrange(1, self.height - 1, 2)
+            self.maze[self.end_y][self.end_x] = 0
 
         def reset_maze(self):
             self.initialize_maze()
