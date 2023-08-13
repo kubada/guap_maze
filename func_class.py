@@ -1,4 +1,5 @@
 from enum import Enum
+from random import choice, randrange
 from typing import Any, List
 
 from pygame import draw
@@ -18,17 +19,17 @@ class Player:
         self.x = x
         self.y = y
 
-    def move(self, direction: Direction, maze: List[List[int]]):
+    def move_player(self, direction: Direction, maze: List[List[int]]):
         dx, dy = direction.value
         if maze[self.y + dy][self.x + dx] == 0:
             self.x += dx
             self.y += dy
 
-    def reset(self, x, y):
+    def reset_player(self, x, y):
         self.x = x
         self.y = y
 
-    def draw(self, screen: Any):
+    def draw_player(self, screen: Any):
         draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
 
 
@@ -45,7 +46,34 @@ class Maze:
         def initialize_maze(self):
             self.maze = [[1] * self.width for _ in range(self.height)]
 
-        def draw(self, screen: Any):
+        def generate_maze(self, density: int, current_level: int):
+            self.initialize_maze()
+            self.density = density
+            self.current_level = current_level
+
+            self.maze = [[1] * self.width for _ in range(self.height)]
+
+            for y in range(1, self.height - 1, 2):
+                for x in range(1, self.width - 1, 2):
+                    self.maze[y][x] = 0
+
+                    adjusted_density = density - (current_level * 2)
+                    for _ in range(adjusted_density):
+                        dx, dy = choice([(0, 1), (0, -1), (1, 0), (-1, 0)])
+                        nx, ny = x + dx, y + dy
+
+                        if self.width > nx >= 0 != self.maze[ny][nx] and 0 <= ny < self.height:
+                            self.maze[ny][nx] = 0
+
+            self.end_x = randrange(1, self.width - 1, 2)
+            self.end_y = randrange(1, self.height - 1, 2)
+            self.maze[self.end_y][self.end_x] = 0
+
+        def reset_maze(self):
+            self.initialize_maze()
+            self.generate_maze(self.density, self.current_level)
+
+        def draw_maze(self, screen: Any):
             screen.fill(black)
             for y in range(self.height):
                 for x in range(self.width):
