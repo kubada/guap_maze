@@ -24,6 +24,50 @@ def main():
     font = pygame.font.Font(None, 24)
     reset_text = font.render('Сброс', True, black)
 
+    clock = pygame.time.Clock()
+    speed = 50
+
+    running = True
+    last_move_time = pygame.time.get_ticks()
+
+    while running:
+        clock.tick(60)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if reset_button_rect.collidepoint(event.pos):
+                    maze.reset_maze()
+                    player.reset_player(1, 1)
+                    running = True  # Сбрасываем флаг на True при нажатии кнопки Reset
+
+        current_time = pygame.time.get_ticks()
+        elapsed_time = current_time - last_move_time
+
+        if elapsed_time >= 1000 / speed:
+            last_move_time = current_time
+            keys = pygame.key.get_pressed()
+            dx = 0
+            dy = 0
+            if keys[pygame.K_UP]:
+                dy = -1
+            elif keys[pygame.K_DOWN]:
+                dy = 1
+            elif keys[pygame.K_LEFT]:
+                dx = -1
+            elif keys[pygame.K_RIGHT]:
+                dx = 1
+
+            new_x = player.x + dx
+            new_y = player.y + dy
+
+            if len(maze.maze[0]) > new_x >= 0 == maze.maze[new_y][new_x] and 0 <= new_y < len(maze.maze):
+                player.x = new_x
+                player.y = new_y
+
+
     screen.fill(black)
     maze.draw(screen)
     player.draw_player(screen)
