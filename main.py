@@ -67,6 +67,14 @@ def main():
                 player.x = new_x
                 player.y = new_y
 
+        # Проверяем условия завершения игры
+        if player.x == maze.end_x and player.y == maze.end_y:
+            if maze.current_level < len(levels) - 1:
+                maze.current_level += 1
+                maze.generate_maze(levels[maze.current_level]['density'], maze.current_level)
+                player.reset_player(1, 1)
+            else:
+                running = False
 
     screen.fill(black)
     maze.draw(screen)
