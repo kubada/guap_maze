@@ -4,7 +4,7 @@ __email__ = 'd@kubada.ru'
 
 from enum import Enum
 from random import choice, randrange
-from typing import Any, List
+from typing import List, Any
 
 from pygame import draw
 
@@ -29,12 +29,12 @@ class Player:
             self.x += dx
             self.y += dy
 
+    def draw_player(self, screen: Any):
+        draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
+
     def reset_player(self, x, y):
         self.x = x
         self.y = y
-
-    def draw_player(self, screen: Any):
-        draw.rect(screen, red, (self.x * cell_size, self.y * cell_size, cell_size, cell_size))
 
 
 class Maze:
@@ -90,7 +90,7 @@ class Maze:
                 self.maze[y + dy // 2][x + dx // 2] = 0
                 self.carve_paths(nx, ny)
 
-    def draw(self, screen: Any):
+    def draw_maze(self, screen: Any):
         screen.fill(black)
         for y in range(self.height):
             for x in range(self.width):

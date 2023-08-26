@@ -2,8 +2,8 @@ from typing import List, Dict
 
 import pygame
 
-from const import width, height, cell_size, black, white
 from func_class import Player, Maze
+from const import width, height, cell_size, black, white
 
 
 def main():
@@ -76,17 +76,17 @@ def main():
             else:
                 running = False
 
-    screen.fill(black)
-    maze.draw(screen)
-    player.draw_player(screen)
+        screen.fill(black)
+        maze.draw_maze(screen)
+        player.draw_player(screen)
 
-    pygame.draw.rect(screen, white, reset_button_rect)
-    screen.blit(reset_text, (width - 90, height - 45))
+        pygame.draw.rect(screen, white, reset_button_rect)
+        screen.blit(reset_text, (width - 90, height - 45))
 
-    pygame.display.flip()
+        pygame.display.flip()
 
+    pygame.quit()
 
-pygame.quit()
 
 if __name__ == '__main__':
     main()
