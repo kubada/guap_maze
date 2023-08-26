@@ -451,4 +451,4 @@
       событий и отображение элементов на экране. Она создает интерактивное окружение для игрока и обеспечивает геймплей.
 
 Файл `readme.md`
-сгенерирован [ChatGPT](https://ru.wikipedia.org/wiki/ChatGPT) / [OpenAI ChatGPT-3.5](https://chat.openai.com)
+сгенерирован с помощью [ChatGPT](https://ru.wikipedia.org/wiki/ChatGPT) / [OpenAI ChatGPT-3.5](https://chat.openai.com)
